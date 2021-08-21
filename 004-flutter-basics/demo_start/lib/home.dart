@@ -1,6 +1,13 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+enum HomeViewState {
+  Busy,
+  DataRetrieved,
+  NoData,
+}
+
+class Home extends StatefulWidget {
   /*
   @override
   State<StatefulWidget> createState() {
@@ -9,42 +16,66 @@ class Home extends StatelessWidget {
   */
 
   // Return a list of data after 1 second to emulate network request
-  Future<List<String>> _getListData(
-      {bool hasError = false, bool hasData = true}) async {
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  List<String> listItems;
+
+  final StreamController<HomeViewState> stateController =
+      StreamController<HomeViewState>();
+
+  Future _getListData({bool hasError = false, bool hasData = true}) async {
+    stateController.add(HomeViewState.Busy);
     await Future.delayed(Duration(seconds: 2));
 
     if (hasError) {
-      return Future.error(
+      // return Future.error(
+      //     'An error occurred while fetching the data. Please try again later');
+      return stateController.addError(
           'An error occurred while fetching the data. Please try again later');
     }
 
     if (!hasData) {
-      return [];
+      return stateController.add(HomeViewState.NoData);
     }
 
-    return List<String>.generate(10, (index) => '$index title');
+    listItems = List<String>.generate(10, (index) => '$index title');
+    stateController.add(HomeViewState.DataRetrieved);
+  }
+
+  @override
+  void initState() {
+    _getListData();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: () {
+          // we want to refresh, but this actually does nothing, which is the limitation
+          _getListData();
+        }),
         backgroundColor: Colors.grey[900],
-        body: FutureBuilder(
-          future: _getListData(hasError: true, hasData: false),
+        body: StreamBuilder(
+          stream: stateController.stream,
           builder: (buildContext, snapshot) {
             // error ui
             if (snapshot.hasError) {
               return _getInformationMessage(snapshot.error);
             }
             // Busy fetching data
-            if (!snapshot.hasData) {
+            if (!snapshot.hasData || snapshot.data == HomeViewState.Busy) {
               return Center(child: CircularProgressIndicator());
             }
 
-            var listItems = snapshot.data;
+            // var listItems = snapshot.data;
 
             // when empty data is returned
-            if (listItems.length == 0) {
+            // if (listItems.length == 0) {
+            if (snapshot.data == HomeViewState.NoData) {
               return _getInformationMessage('No data found for your account');
             }
 
