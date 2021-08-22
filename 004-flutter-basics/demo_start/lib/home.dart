@@ -1,11 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-
-enum HomeViewState {
-  Busy,
-  DataRetrieved,
-  NoData,
-}
+import 'package:flutter_basics/home_model.dart';
 
 class Home extends StatefulWidget {
   /*
@@ -21,33 +16,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<String> listItems;
-
-  final StreamController<HomeViewState> stateController =
-      StreamController<HomeViewState>();
-
-  Future _getListData({bool hasError = false, bool hasData = true}) async {
-    stateController.add(HomeViewState.Busy);
-    await Future.delayed(Duration(seconds: 2));
-
-    if (hasError) {
-      // return Future.error(
-      //     'An error occurred while fetching the data. Please try again later');
-      return stateController.addError(
-          'An error occurred while fetching the data. Please try again later');
-    }
-
-    if (!hasData) {
-      return stateController.add(HomeViewState.NoData);
-    }
-
-    listItems = List<String>.generate(10, (index) => '$index title');
-    stateController.add(HomeViewState.DataRetrieved);
-  }
+  HomeModel model = HomeModel();
 
   @override
   void initState() {
-    _getListData();
+    model.getListData();
     super.initState();
   }
 
@@ -56,11 +29,11 @@ class _HomeState extends State<Home> {
     return Scaffold(
         floatingActionButton: FloatingActionButton(onPressed: () {
           // we want to refresh, but this actually does nothing, which is the limitation
-          _getListData();
+          model.getListData();
         }),
         backgroundColor: Colors.grey[900],
         body: StreamBuilder(
-          stream: stateController.stream,
+          stream: model.homeState,
           builder: (buildContext, snapshot) {
             // error ui
             if (snapshot.hasError) {
@@ -81,9 +54,9 @@ class _HomeState extends State<Home> {
 
             // build list if we have data
             return ListView.builder(
-                itemCount: listItems.length,
+                itemCount: model.listItems.length,
                 itemBuilder: (buildContext, index) {
-                  return _getListItemUi(index, listItems);
+                  return _getListItemUi(index, model.listItems);
                 });
           },
         ));
