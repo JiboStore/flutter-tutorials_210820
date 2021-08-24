@@ -3,18 +3,16 @@ import 'package:scoped_guide/scoped_model/base_model.dart';
 import 'package:scoped_guide/service_locator.dart';
 import 'package:scoped_guide/services/storage_service.dart';
 
-class HomeModel extends BaseModel {
+class ErrorModel extends BaseModel {
   StorageService storageService = locator<StorageService>();
-  String title = "HomeModel";
+  String title = "ErrorModel";
 
-  Future<bool> saveData() async {
+  Future saveData() async {
     setState(ViewState.Busy);
     title = "Saving Data";
     await storageService.saveData();
     title = "Data Saved";
     setState(ViewState.Retrieved);
-
-    return true;
   }
 
   // ViewState _state;
