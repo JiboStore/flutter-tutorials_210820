@@ -11,9 +11,14 @@ class HomeView extends StatelessWidget {
         model: locator<HomeModel>(),
         child: ScopedModelDescendant<HomeModel>(
           builder: (context, child, model) => Scaffold(
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  model.saveData();
+                },
+              ),
               body: Center(
-            child: Text(model.title),
-          )),
+                child: Text(model.title),
+              )),
         ));
   }
 }
