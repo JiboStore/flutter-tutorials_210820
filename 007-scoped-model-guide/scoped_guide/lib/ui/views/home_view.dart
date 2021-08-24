@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_guide/enums/view_states.dart';
 import 'package:scoped_guide/service_locator.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -17,8 +18,21 @@ class HomeView extends StatelessWidget {
                 },
               ),
               body: Center(
-                child: Text(model.title),
-              )),
+                  child:
+                      Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                _getBodyUi(model.state),
+                Text(model.title),
+              ]))),
         ));
+  }
+
+  Widget _getBodyUi(ViewState state) {
+    switch (state) {
+      case ViewState.Busy:
+        return CircularProgressIndicator();
+      case ViewState.Retrieved:
+      default:
+        return Text('Done');
+    }
   }
 }
