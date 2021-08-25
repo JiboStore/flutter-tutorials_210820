@@ -23,7 +23,9 @@ class HomeView extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SuccessView()));
+                                builder: (context) => SuccessView(
+                                      title: 'Passed in from home',
+                                    )));
                       } else {
                         Navigator.push(
                             context,

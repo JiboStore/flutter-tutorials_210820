@@ -7,6 +7,14 @@ class SuccessModel extends BaseModel {
   StorageService storageService = locator<StorageService>();
   String title = "SuccessModel";
 
+  Future fetchDuplicatedText(String text) async {
+    setState(ViewState.Busy);
+    await Future.delayed(Duration(seconds: 2));
+    title = '$text $text';
+
+    setState(ViewState.Retrieved);
+  }
+
   Future saveData() async {
     setState(ViewState.Busy);
     title = "Saving Data";
