@@ -32,6 +32,7 @@ class LoginView extends StatelessWidget {
                                   await model.login(_controller.text);
                               if (loginSuccess) {
                                 // Navigate to the home view
+                                Navigator.pushNamed(context, '/');
                               }
                             },
                           )
