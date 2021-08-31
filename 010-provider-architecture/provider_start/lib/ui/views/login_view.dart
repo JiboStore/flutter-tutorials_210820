@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:provider_architecture/core/enums/viewstate.dart';
 import 'package:provider_architecture/core/viewmodels/login_model.dart';
 import 'package:provider_architecture/locator.dart';
 import 'package:provider_architecture/ui/shared/app_colors.dart';
@@ -19,7 +20,9 @@ class LoginView extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    LoginHeader(controller: _controller),
+                    LoginHeader(
+                        validationMessage: model.errorMessage,
+                        controller: _controller),
                     model.state == ViewState.Busy
                         ? CircularProgressIndicator()
                         : TextButton(
