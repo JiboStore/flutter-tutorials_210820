@@ -7,6 +7,7 @@ class BaseModel extends ChangeNotifier {
   ViewState get state => _state;
 
   void setState(ViewState viewState) {
+    print('setState: ' + viewState.toString());
     _state = viewState;
     notifyListeners();
   }
