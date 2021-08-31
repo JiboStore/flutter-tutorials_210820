@@ -51,7 +51,7 @@ class Api {
     print('$endpoint/posts?userId=$userId');
     try {
       // var response = await client.get('$endpoint/posts?userId=$userId');
-      await Future.delayed(Duration(seconds: 5));
+      await Future.delayed(Duration(seconds: 2));
     } catch (error) {
       print(error);
     }
@@ -74,11 +74,18 @@ class Api {
   Future<List<Comment>> getCommentsForPost(int postId) async {
     var comments = List<Comment>();
 
+    await Future.delayed(Duration(seconds: 2));
+
+    String szComments =
+        '[\r\n  {\r\n    \"postId\": 8,\r\n    \"id\": 36,\r\n    \"name\": \"sit et quis\",\r\n    \"email\": \"Raheem_Heaney@gretchen.biz\",\r\n    \"body\": \"aut vero est\\ndolor non aut excepturi dignissimos illo nisi aut quas\\naut magni quia nostrum provident magnam quas modi maxime\\nvoluptatem et molestiae\"\r\n  },\r\n  {\r\n    \"postId\": 8,\r\n    \"id\": 37,\r\n    \"name\": \"beatae veniam nemo rerum voluptate quam aspernatur\",\r\n    \"email\": \"Jacky@victoria.net\",\r\n    \"body\": \"qui rem amet aut\\ncumque maiores earum ut quia sit nam esse qui\\niusto aspernatur quis voluptas\\ndolorem distinctio ex temporibus rem\"\r\n  },\r\n  {\r\n    \"postId\": 8,\r\n    \"id\": 38,\r\n    \"name\": \"maiores dolores expedita\",\r\n    \"email\": \"Piper@linwood.us\",\r\n    \"body\": \"unde voluptatem qui dicta\\nvel ad aut eos error consequatur voluptatem\\nadipisci doloribus qui est sit aut\\nvelit aut et ea ratione eveniet iure fuga\"\r\n  },\r\n  {\r\n    \"postId\": 8,\r\n    \"id\": 39,\r\n    \"name\": \"necessitatibus ratione aut ut delectus quae ut\",\r\n    \"email\": \"Gaylord@russell.net\",\r\n    \"body\": \"atque consequatur dolorem sunt\\nadipisci autem et\\nvoluptatibus et quae necessitatibus rerum eaque aperiam nostrum nemo\\neligendi sed et beatae et inventore\"\r\n  },\r\n  {\r\n    \"postId\": 8,\r\n    \"id\": 40,\r\n    \"name\": \"non minima omnis deleniti pariatur facere quibusdam at\",\r\n    \"email\": \"Clare.Aufderhar@nicole.ca\",\r\n    \"body\": \"quod minus alias quos\\nperferendis labore molestias quae ut ut corporis deserunt vitae\\net quaerat ut et ullam unde asperiores\\ncum voluptatem cumque\"\r\n  }\r\n]';
+
+    var parsed = json.decode(szComments) as List<dynamic>;
+
     // Get comments for post
-    var response = await client.get('$endpoint/comments?postId=$postId');
+    // var response = await client.get('$endpoint/comments?postId=$postId');
 
     // Parse into List
-    var parsed = json.decode(response.body) as List<dynamic>;
+    // var parsed = json.decode(response.body) as List<dynamic>;
 
     // Loop and convert each item to a Comment
     for (var comment in parsed) {
