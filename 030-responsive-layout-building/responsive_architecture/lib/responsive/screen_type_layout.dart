@@ -8,22 +8,24 @@ class ScreenTypeLayout extends StatelessWidget {
   final Widget tablet;
   final Widget desktop;
 
-  const ScreenTypeLayout({Key key, @required this.mobile, this.tablet, this.desktop}) : super(key: key);
-  
+  const ScreenTypeLayout(
+      {Key key, @required this.mobile, this.tablet, this.desktop})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         // if sizing indicates Tablet and we have a tablet widget then return
-        if ( sizingInformation.deviceScreenType == DeviceScreenType.Tablet ) {
-          if ( tablet != null ) {
+        if (sizingInformation.deviceScreenType == DeviceScreenType.Tablet) {
+          if (tablet != null) {
             return tablet;
           }
         }
 
         // if sizing indicates Desktop and we have a desktop widget then return
-        if ( sizingInformation.deviceScreenType == DeviceScreenType.Desktop ) {
-          if ( desktop != null ) {
+        if (sizingInformation.deviceScreenType == DeviceScreenType.Desktop) {
+          if (desktop != null) {
             return desktop;
           }
         }
@@ -31,6 +33,6 @@ class ScreenTypeLayout extends StatelessWidget {
         // return mobile layout if nothing else is supplied
         return mobile;
       },
-    )
+    );
   }
 }
