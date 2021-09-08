@@ -11,7 +11,10 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
       mobile: const AppDrawerMobileLayout(),
-      tablet: const OrientationLayout(portrait: AppDrawerTabletPortrait()),
+      tablet: const OrientationLayout(
+        portrait: AppDrawerTabletPortrait(),
+        landscape: AppDrawerTabletLandscape(),
+      ),
     );
     // var orientation = MediaQuery.of(context).orientation;
     // return Container(
