@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_architecture/widgets/app_drawer/app_drawer.dart';
 
 class AppDrawerMobileLayout extends StatelessWidget {
   const AppDrawerMobileLayout({Key key}) : super(key: key);
@@ -10,6 +11,9 @@ class AppDrawerMobileLayout extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.amber,
             boxShadow: [BoxShadow(blurRadius: 16, color: Colors.blueAccent)]),
+        child: Column(
+          children: AppDrawer.getDrawerOptions(),
+        ),
       );
     });
   }

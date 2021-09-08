@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_architecture/widgets/app_drawer/app_drawer.dart';
 
 class AppDrawerTabletPortrait extends StatelessWidget {
   const AppDrawerTabletPortrait({Key key}) : super(key: key);
@@ -10,6 +11,9 @@ class AppDrawerTabletPortrait extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.deepOrange,
           boxShadow: [BoxShadow(blurRadius: 16, color: Colors.purpleAccent)]),
+      child: Row(
+        children: AppDrawer.getDrawerOptions(),
+      ),
     );
   }
 }
@@ -23,6 +27,9 @@ class AppDrawerTabletLandscape extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.indigo,
           boxShadow: [BoxShadow(blurRadius: 16, color: Colors.black12)]),
+      child: Column(
+        children: AppDrawer.getDrawerOptions(),
+      ),
     );
   }
 }
