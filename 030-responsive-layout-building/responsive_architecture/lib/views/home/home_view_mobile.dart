@@ -26,3 +26,14 @@ class HomeMobilePortrait extends StatelessWidget {
         ));
   }
 }
+
+class HomeMobileLandscape extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Row(
+        children: <Widget>[AppDrawer()],
+      ),
+    );
+  }
+}

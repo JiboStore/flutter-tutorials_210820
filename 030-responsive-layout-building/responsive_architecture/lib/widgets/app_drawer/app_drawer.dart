@@ -5,8 +5,9 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var orientation = MediaQuery.of(context).orientation;
     return Container(
-      width: 250,
+      width: orientation == Orientation.portrait ? 250 : 100,
       decoration: BoxDecoration(color: Colors.blue, boxShadow: [
         BoxShadow(
           blurRadius: 16,

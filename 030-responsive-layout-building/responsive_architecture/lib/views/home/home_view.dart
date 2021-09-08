@@ -14,6 +14,7 @@ class HomeView extends StatelessWidget {
     return ScreenTypeLayout(
         mobile: OrientationLayout(
       portrait: HomeMobilePortrait(),
+      landscape: HomeMobileLandscape(),
     ));
   }
 }
